@@ -1,3 +1,6 @@
+<?php
+    session_start()
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,12 +18,8 @@
                 <span class="line line3"></span>
             </div>
             <ul class="menu-items">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Category</a></li>
-                <li><a href="#">Menu</a></li>
-                <li><a href="#">Testimonial</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="/Uts/app/home.php">Home</a></li>
+                <li><a href="<?php echo isset($_SESSION['user']) ? '/Uts/server/logout.php' : '/Uts/app/login.php'; ?>"><?php echo isset($_SESSION['user']) ? 'logout' : 'login'; ?></a></li>
             </ul>
             <h1 class="logo">Navbar</h1>
         </div>
@@ -53,7 +52,6 @@
 
 .navbar{
     box-shadow: 0px 5px 10px 0px #aaa;
-    position: fixed;
     width: 100%;
     background: #fff;
     color: #000;
