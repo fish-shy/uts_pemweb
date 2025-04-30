@@ -1,6 +1,6 @@
 
 <?php
-session_start()
+include '../component/navbar.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

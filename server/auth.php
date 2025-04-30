@@ -1,13 +1,13 @@
 <?php
+
+session_start();
 include 'connect_database.php';
-$username = $_POST['username'];
-$password = md5($_POST['password']);
+$username = isset($_POST['username']) ? $_POST['username'] : '';
+$password = isset($_POST['password']) ? md5($_POST['password']) : '';
 
 $sql = "SELECT * FROM user WHERE username='$username' AND password='$password'";
 $result = $conn->query($sql);
 $rowcount = mysqli_num_rows($result);
-session_start();
-
 
 if ($rowcount != 0) {
   $_SESSION["user"] = $username;

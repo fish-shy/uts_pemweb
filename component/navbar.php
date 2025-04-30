@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navbar</title>
 </head>
 <body>
     <nav class="navbar">
@@ -19,9 +18,16 @@
             </div>
             <ul class="menu-items">
                 <li><a href="/Uts/app/home.php">Home</a></li>
-                <li><a href="<?php echo isset($_SESSION['user']) ? '/Uts/server/logout.php' : '/Uts/app/login.php'; ?>"><?php echo isset($_SESSION['user']) ? 'logout' : 'login'; ?></a></li>
+                <!-- note user hanya untuk admin yang bisa melihat implement nanti -->
+                <li><a href="/Uts/app/user.php">User</a></li>
+                <!-- note produk untuk melihat list produk dan ada edit atau add untuk admin only di handle di pagenya sendiri -->
+                <li><a href="/Uts/app/product       .php">Product</a></li>
+
+                <li><a href="<?php echo isset($_SESSION['user']) ? '/Uts/server/logout.php' : '/Uts/app/login.php'; ?>"><?php echo isset($_SESSION['user']) ? 'Logout' : 'L ogin'; ?></a></li>
+
+
             </ul>
-            <h1 class="logo">Navbar</h1>
+            <img class="logo" src="/Uts/assets/logo.png" alt="logo" width="80px" height="80px">
         </div>
     </nav>
 </body>
@@ -177,8 +183,10 @@
     }
 
     .logo{
+        width: 60px;
+        height: 60px;
         position: absolute;
-        top: 10px;
+        top:1px;
         right: 15px;
         font-size: 2.5rem;
     }
