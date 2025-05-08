@@ -1,6 +1,4 @@
-<?php 
-  include '../server/fetch_user.php'; // Make sure this path is correct
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,10 +6,57 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Bakehouse - User List</title>
-  <!-- Link your main CSS file if you have one -->
-  <!-- <link rel="stylesheet" href="../styles/main.css" /> -->
-  <style>
-    /* Basic Table Styling */
+  <link rel="stylesheet" href="../style/css/bootstrap.min.css">
+</head>
+<body>
+<?php
+  include '../component/navbar.php';
+?>
+<div class="container">
+  <h1>User List</h1>
+  <div class="d-flex justify-content-end mb-4 me-1">
+    <a href="../App/add_user_page.php" class='btn btn-custom-black'>add User</a>
+  </div>
+  <?php if (!empty($user)): ?>
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Is Admin</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($user as $i): ?>
+          <tr>
+            <td><?php echo $i['username'] ?></td>
+            <td><?php echo $i['is_admin'] ? 'Yes' : 'No'; ?></td>
+            <td>
+              <form action="../server/delete_user.php" method="POST">
+                <input type="hidden" name="user_id" value="<?php echo$i['id'] ?>">
+                <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+              </form>
+              
+            </td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+  <?php elseif ($user === null): ?>
+    <p class="no-users">Could not retrieve user data due to an error.</p>
+  <?php else: ?>
+    <p class="no-users">No users found in the database.</p>
+  <?php endif; ?>
+
+</div>
+
+<?php
+  include '../component/footer.php';
+?>
+
+</body>
+</html>
+<style>
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
@@ -59,50 +104,15 @@
       margin-top: 2rem;
       font-style: italic;
     }
-    /* Add styles for your navbar and footer if needed */
-    /* Example: */
-    /* header, footer { background: #333; color: #fff; padding: 1rem 0; text-align: center; } */
+    .btn-custom-black {
+    background-color: black;
+    border-color: black;
+    color: white;
+  }
+
+  .btn-custom-black:hover {
+    background-color: grey;
+    border-color: grey;
+    color: white;
+  }
   </style>
-</head>
-<body>
-
-<?php
-  // Make sure this path is correct relative to the current file
-  include '../component/navbar.php';
-?>
-
-<div class="container">
-  <h1>User List</h1>
-
-  <?php if (!empty($user)): ?>
-    <table class="user-table">
-      <thead>
-        <tr>
-          <th>Username</th>
-          <th>Is Admin</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($user as $u): ?>
-          <tr>
-            <td><?php echo htmlspecialchars($u['username']); ?></td>
-            <td><?php echo $u['is_admin'] ? 'Yes' : 'No'; ?></td>
-          </tr>
-        <?php endforeach; ?>
-      </tbody>
-    </table>
-  <?php elseif ($user === null): ?>
-    <p class="no-users">Could not retrieve user data due to an error.</p>
-  <?php else: ?>
-    <p class="no-users">No users found in the database.</p>
-  <?php endif; ?>
-
-</div>
-
-<?php
-  // Make sure this path is correct relative to the current file
-  include '../component/footer.php';
-?>
-
-</body>
-</html>

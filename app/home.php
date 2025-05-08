@@ -94,9 +94,7 @@
           <p>
             <strong>Email:</strong>
             <a href="mailto:rayhandika@gmail.com">rayhandika@gmail.com</a>
-          </p>
-          <!-- You could add an address here if needed -->
-          <!-- <p><strong>Address:</strong> 123 Bakery Lane, Pastryville</p> -->
+          </p>>
         </div>
       </div>
     </section>
@@ -107,7 +105,6 @@
   include '../component/footer.php';
 ?>
 <style>
-  /* Contact Us Section Styles */
 .contact {
   padding: 4rem 0;
   background-color: #f8f8f8; /* Match signature background or use #fff */
@@ -156,7 +153,6 @@
   color: #1e4bb8; /* Darker link color on hover */
 }
 
-/* Responsive Adjustments for Contact Section */
 @media (max-width: 768px) {
   .contact h2 {
     font-size: 2rem;

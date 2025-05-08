@@ -1,21 +1,21 @@
 <?php
 include 'connect_database.php';
 
-$user = array();
+$product = array();
 
-$sql = "SELECT username, is_admin , id FROM user";
+$sql = "SELECT * FROM product";
 $result = $conn->query($sql);
 
 if ($result) {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $user[] = $row;
+            $product[] = $row;
         }
     }
     $result->free();
 } else {
     echo "Error executing query: " . $conn->error;
-    $user = null;
+    $product = null;
 }
 $conn->close();
 ?>

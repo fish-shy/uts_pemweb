@@ -18,10 +18,8 @@
             </div>
             <ul class="menu-items">
                 <li><a href="/Uts/app/home.php">Home</a></li>
-                <!-- note user hanya untuk admin yang bisa melihat implement nanti -->
                 <li><a href="/Uts/app/user.php">User</a></li>
-                <!-- note produk untuk melihat list produk dan ada edit atau add untuk admin only di handle di pagenya sendiri -->
-                <li><a href="/Uts/app/product       .php">Product</a></li>
+                <li><a href="/Uts/app/product.php">Product</a></li>
 
                 <li><a href="<?php echo isset($_SESSION['user']) ? '/Uts/server/logout.php' : '/Uts/app/login.php'; ?>"><?php echo isset($_SESSION['user']) ? 'Logout' : 'L ogin'; ?></a></li>
 

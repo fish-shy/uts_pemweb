@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
 <footer>
     <div class="footer-container">
         <div class="footer-column logo-contact">
@@ -45,7 +53,11 @@
     <div class="footer-bottom">
         <p>&copy; 2018 companyLtd All right reserved</p>
     </div>
-</footer>
+</footer>    
+</body>
+</html>
+
+
 
 <style>
     body {
