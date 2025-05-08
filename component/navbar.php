@@ -27,7 +27,7 @@
 
 
             </ul>
-            <img class="logo" src="/Uts/assets/logo.png" alt="logo" width="80px" height="80px">
+            <img class="logo-nav" src="/Uts/assets/logo.png" alt="logo">
         </div>
     </nav>
 </body>
@@ -76,9 +76,13 @@
     order: 2;
     display: flex;
 }
-.logo{
+.logo-nav{
+    width: 60px;
+    height: 60px;
+    margin-top: 10px;
     order: 1;
     font-size: 2.3rem;
+    margin-bottom: 10px;
 }
 
 .menu-items li{
@@ -182,7 +186,7 @@
         font-weight: 500;
     }
 
-    .logo{
+    .logo-nav{
         width: 60px;
         height: 60px;
         position: absolute;
@@ -210,7 +214,7 @@
 }
 
 @media (max-width: 500px){
-    .navbar-container input[type="checkbox"]:checked ~ .logo{
+    .navbar-container input[type="checkbox"]:checked ~ .logo-nav{
         display: none;
     }
 }
