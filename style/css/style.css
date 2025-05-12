@@ -1,0 +1,13 @@
+  .product-card-img {
+    height: 180px;
+    object-fit: cover;
+  }
+
+
+  .filter-btn {
+    min-width: 80px;
+  }
+
+  .cart-item-actions a {
+    font-size: 0.8em;
+  }

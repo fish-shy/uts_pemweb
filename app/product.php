@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../server/fetch_product.php';
 ?>
 <!DOCTYPE html>
@@ -9,6 +10,7 @@ include '../server/fetch_product.php';
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Bakehouse</title>
   <link rel="stylesheet" href="../style/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../style/css/style.css">
 </head>
 
 <body>
@@ -16,7 +18,7 @@ include '../server/fetch_product.php';
   include '../component/navbar.php';
   ?>
 
-  <div class="container mt-4 mb-5">
+  <div class="container mt-4 mb-5 bg-light p-4 shadow-sm rounded">
     <div class="row">
       <div class="col-lg-8">
         <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
@@ -26,36 +28,43 @@ include '../server/fetch_product.php';
               <input type="search" class="form-control me-2 mb-2 mb-sm-0" placeholder="Search" style="max-width: 250px; min-width: 150px;">
             </div>
           </div>
-          <a href="../app/add_product_page.php" class="btn btn-custom-black">Add Product</a>
+          <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == '1'): ?>
+          <a href="../app/add_product_page.php" class="btn btn-dark">Add Product</a>
+          <?php endif; ?>
         </div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
           <?php if (!empty($product)): ?>
-            <?php foreach ($product as $item): ?>
+            <?php foreach ($product as $i): ?>
               <div class="col">
                 <div class="card h-100 shadow-sm">
-                  <img src='<?php echo $item['image'] ?>' class="card-img-top product-card-img" alt="<?php echo $item['product_name'] ?>">
+                  <img src='<?php echo $i['image'] ?>' class="card-img-top product-card-img" alt="<?php echo $i['product_name'] ?>">
 
                   <div class="card-body d-flex flex-column justify-content-between">
-                    <h5 class="card-title"><?php echo $item['product_name'] ?></h5>
-                    <p class="card-text mb-2"><strong>$<?php echo number_format((float)$item['price'], 2) ?></strong></p>
+                    <h5 class="card-title"><?php echo $i['product_name'] ?></h5>
+                    <p class="card-text mb-2"><strong>$<?php echo number_format((float)$i['price'], 2) ?></strong></p>
                     <?php
-                    if (!empty($item['description'])) {
-                      echo '<p class="card-text small text-muted">' . substr($item['description'], 0, 50) . '...</p>';
+                    if (!empty($i['description'])) {
+                      echo '<p class="card-text small text-muted">' . substr($i['description'], 0, 50) . '...</p>';
                     }
                     ?>
                     <div>
+                        <?php if (isset($_SESSION['user']) ): ?>
                       <form action="../server/add_to_cart.php" method="POST" class="mt-auto mb-2">
-                        <input type="hidden" name="product_id" value="<?php echo $item['id'] ?>">
-                        <input type="hidden" name="product_name" value="<?php echo $item['product_name'] ?>">
-                        <input type="hidden" name="product_price" value="<?php echo $item['price'] ?>">
-                        <button type="submit" name="add_to_cart" class="btn btn-custom-black w-100">Add</button>
-                      </form>
-                      <form action="../server/delete_product.php" method="POST" class="mt-auto">
-                        <input type="hidden" name="product_id" value="<?php echo $item['id'] ?>">
-                        <input type="hidden" name="product_name" value="<?php echo $item['product_name'] ?>">
-                        <input type="hidden" name="product_price" value="<?php echo $item['price'] ?>">
-                        <button type="submit" name="delete" class="btn btn-danger w-100">Delete</button>
-                      </form>
+                        <input type="hidden" name="product_id" value="<?php echo $i['id'] ?>">
+                        <input type="hidden" name="product_name" value="<?php echo $i['product_name'] ?>">
+                        <input type="hidden" name="product_price" value="<?php echo $i['price'] ?>">
+                        <button type="submit" name="add_to_cart" class="btn btn-dark w-100">Add</button>
+                      </form><?php endif; ?>
+                      <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == '1'): ?>
+                        
+                        <a href="edit_product_page.php?id=<?php echo $i['id']; ?>" class="btn btn-primary w-100 mb-2">Edit</a>
+                        <form action="../server/delete_product.php" method="POST" class="mt-auto">
+                          <input type="hidden" name="product_id" value="<?php echo $i['id'] ?>">
+                          <input type="hidden" name="product_name" value="<?php echo $i['product_name'] ?>">
+                          <input type="hidden" name="product_price" value="<?php echo $i['price'] ?>">
+                          <button type="submit" name="delete" class="btn btn-danger w-100">Delete</button>
+                        </form>
+                      <?php endif; ?>
                     </div>
                   </div>
                 </div>
@@ -109,7 +118,7 @@ include '../server/fetch_product.php';
                 <h5><strong>$<?php echo number_format($cartTotal, 2) ?></strong></h5>
               </div>
               <div class="d-grid gap-2 mt-3">
-                <a href="../server/add_to_cart.php?action=clear_cart" type="button" class="btn btn-custom-black btn-lg">Checkout</a>
+                <a href="../server/add_to_cart.php?action=clear_cart" type="button" class="btn btn-dark btn-lg">Checkout</a>
                 <a href="../server/add_to_cart.php?action=clear_cart" class="btn btn-outline-danger btn-sm">Clear Cart</a>
               </div>
             <?php endif; ?>
@@ -133,29 +142,3 @@ include '../server/fetch_product.php';
 </body>
 
 </html>
-<style>
-  .product-card-img {
-    height: 180px;
-    object-fit: cover;
-  }
-
-  .btn-custom-black {
-    background-color: black;
-    border-color: black;
-    color: white;
-  }
-
-  .btn-custom-black:hover {
-    background-color: grey;
-    border-color: grey;
-    color: white;
-  }
-
-  .filter-btn {
-    min-width: 80px;
-  }
-
-  .cart-item-actions a {
-    font-size: 0.8em;
-  }
-</style>

@@ -3,7 +3,7 @@ include 'connect_database.php';
 
 $user = array();
 
-$sql = "SELECT username, is_admin , id FROM user";
+$sql = "SELECT username, is_admin , id , profile_picture  FROM user";
 $result = $conn->query($sql);
 
 if ($result) {

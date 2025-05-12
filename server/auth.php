@@ -13,8 +13,10 @@ if ($result) {
     while ($row = $result->fetch_assoc()) {
       $user[] = $row;
     }
-      $_SESSION["user"] = $username;
-      $_SESSION["is_admin"] = $user['is_admin'];
+      $_SESSION["user_id"] = $user[0]['id'];  
+      $_SESSION["profile_picture"] = $user[0]['profile_picture']; 
+      $_SESSION["user"] = $username;  
+      $_SESSION["is_admin"] = $user[0]['is_admin'];
 
     }
 }

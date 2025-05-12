@@ -1,6 +1,4 @@
-<?php
-    session_start()
-?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,13 +16,19 @@
             </div>
             <ul class="menu-items">
                 <li><a href="/Uts/app/home.php">Home</a></li>
+                <?php if(isset($_SESSION['is_admin'])) :?>
+                <?php if($_SESSION['is_admin'] == '1') :?>
                 <li><a href="/Uts/app/user.php">User</a></li>
+                    <?php endif; ?>
+                     <?php endif; ?>
                 <li><a href="/Uts/app/product.php">Product</a></li>
-
-                <li><a href="<?php echo isset($_SESSION['user']) ? '/Uts/server/logout.php' : '/Uts/app/login.php'; ?>"><?php echo isset($_SESSION['user']) ? 'Logout' : 'L ogin'; ?></a></li>
-
-
-            </ul>
+                <?php if(isset($_SESSION['user'])):?>
+                <li><a href="/Uts/app/profile.php">Profile</a></li>
+                <?php endif; ?>
+                
+                    <li><a href="<?php echo isset($_SESSION['user']) ? '/Uts/server/logout.php' : '/Uts/app/login.php'; ?>"><?php echo isset($_SESSION['user']) ? 'Logout' : 'Login'; ?></a></li>
+              
+                </ul>
             <img class="logo-nav" src="/Uts/assets/logo.png" alt="logo">
         </div>
     </nav>

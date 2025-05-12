@@ -1,26 +1,39 @@
+<?php
+session_start();
+include '../server/fetch_user.php';
 
+if (!isset($_SESSION['is_admin'])) {
+    header("Location: ../app/home.php");
+    exit;
+}
 
+if ($_SESSION['is_admin'] === '0') { 
+    header("Location: ../app/home.php");
+    exit;
+}
+?>
+<?php
+  include '../component/navbar.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>Bakehouse - User List</title>
+  <title>Bakehouse User</title>
   <link rel="stylesheet" href="../style/css/bootstrap.min.css">
 </head>
 <body>
-<?php
-  include '../component/navbar.php';
-?>
-<div class="container">
+<div class="container mb-5 mt-5 ">
   <h1>User List</h1>
-  <div class="d-flex justify-content-end mb-4 me-1">
+  <div class="d-flex justify-content-end mb-4 me-1 ">
     <a href="../App/add_user_page.php" class='btn btn-custom-black'>add User</a>
   </div>
   <?php if (!empty($user)): ?>
     <table class="user-table">
       <thead>
         <tr>
+          <th>Profile Picture</th>
           <th>Username</th>
           <th>Is Admin</th>
           <th>Action</th>
@@ -29,13 +42,21 @@
       <tbody>
         <?php foreach ($user as $i): ?>
           <tr>
-            <td><?php echo $i['username'] ?></td>
+            <td>
+               <?php if (!empty($i['profile_picture'])): ?>
+                        <img src="<?php echo $i['profile_picture']; ?>" alt="Current profile picture" class="mt-2" style="max-width: 100px; max-height: 100px;">
+                    <?php else : ?>
+                        <img src="../assets/image.png" alt="Current profile picture" class="mt-2" style="max-width: 100px; max-height: 100px;">
+                    <?php endif; ?>
+            </td>
+            <td><?php echo $i['username'] ?> </td>
             <td><?php echo $i['is_admin'] ? 'Yes' : 'No'; ?></td>
             <td>
               <form action="../server/delete_user.php" method="POST">
                 <input type="hidden" name="user_id" value="<?php echo$i['id'] ?>">
-                <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+                <button type="submit" name="delete" class="btn btn-danger col-md-5">Delete</button>
               </form>
+              <a href="edit_user_page.php?id=<?php echo $i['id']; ?>" class="btn btn-dark mt-2 col-md-5">Edit</a>
               
             </td>
           </tr>
@@ -50,26 +71,14 @@
 
 </div>
 
+</body>
+
+</html>
 <?php
   include '../component/footer.php';
 ?>
-
-</body>
-</html>
 <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background-color: #fff;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
+
     h1 {
       text-align: center;
       color: #333;
