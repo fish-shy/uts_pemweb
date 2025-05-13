@@ -48,6 +48,18 @@ if (isset($_SESSION['username'])) {
                 </div>
 
               </form>
+
+              <script>
+                function validateLogin() {
+                  const username = document.getElementById('username').value;
+                  const password = document.getElementById('password').value;
+                  if (username.trim() === '' || password.trim() === '') {
+                    alert('Please fill in both fields.');
+                    return false; // Prevent form submission
+                  }
+                  return true; // Allow form submission
+                }
+              </script>
             </div>
           </div>
         </div>
